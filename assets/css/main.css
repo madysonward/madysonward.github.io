@@ -1791,6 +1791,12 @@
 
 /* Basic */
 
+.img-circle {
+	border-radius: 80%;
+	height: 50%;
+	width: 50%;
+}
+
 	body {
 		background: #f7f7f7 url("images/bg01.png");
 	}
