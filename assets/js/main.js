@@ -10,16 +10,13 @@
 	$(function() {
 		var	$window = $(window),
 			$body = $('body');
-
 		//Disable animations/transitions until the page has loaded
 			$body.addClass('is-loading');
 			$window.on('load', function() {
 				$body.removeClass('is-loading');
 			});
-
 		//Placeholder polyfill.
 			$('form').placeholder();
-
 		//Prioritize elements when narrow
 			skel.on('+narrower -narrower', function() {
 				$.prioritize(
@@ -27,16 +24,13 @@
 					skel.breakpoint('narrower').active
 				);
 			});
-
 		//Dropdowns
 			$('#nav > ul').dropotron({
 				offsetY: -15,
 				hoverDelay: 0,
 				alignment: 'center'
 			});
-
 		//OFF-CANVAS NAV
-
 			//Title
 				$(
 					'<div id="titleBar">' +
@@ -45,7 +39,6 @@
 					'</div>'
 				)
 					.appendTo($body);
-
 			//Nav Panel
 				$(
 					'<div id="navPanel">' +

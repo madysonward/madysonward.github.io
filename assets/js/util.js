@@ -22,80 +22,61 @@
 		return b.join('');
 	};
 	$.fn.panel = function(userConfig) {
-
-		//No elements
+		//0 elements
 			if (this.length == 0)
 				return $this;
-
 		//1+ elements
 			if (this.length > 1) {
 				for (var i=0; i < this.length; i++)
 					$(this[i]).panel(userConfig);
 				return $this;
 			}
-
 		//Vars
 			var	$this = $(this),
 				$body = $('body'),
 				$window = $(window),
 				id = $this.attr('id'),
 				config;
-
 		//Configuration
 			config = $.extend({
 				//Delay
 					delay: 0,
-
-				//Hide panel on link click.
+				//Hide panel on link click
 					hideOnClick: false,
-
-				//Hide panel on escape keypress.
+				//Hide panel on esc keypress
 					hideOnEscape: false,
-
-				//Hide panel on swipe.
+				//Hide panel on swipe
 					hideOnSwipe: false,
-
-				//Reset scroll position on hide.
+				//Reset scroll on hide
 					resetScroll: false,
-
-				//Reset forms on hide.
+				//Reset forms on hide
 					resetForms: false,
-
-				//Side of viewport the panel will appear.
+				//Side of viewport panel will appear
 					side: null,
-
-				//Target element for "class".
+				//Target classes
 					target: $this,
-
-				//Class to toggle.
+				//Class toggle
 					visibleClass: 'visible'
 			}, userConfig);
 				if (typeof config.target != 'jQuery')
 					config.target = $(config.target);
-
 		//PANEL
-
-			//METHODS
+			//Methods
 				$this._hide = function(event) {
 					//Bail if already hidden
 						if (!config.target.hasClass(config.visibleClass))
 							return;
-
 					//Cancel if event was provided
 						if (event) {
-
 							event.preventDefault();
 							event.stopPropagation();
 						}
-
 					//Hide
 						config.target.removeClass(config.visibleClass);
 						window.setTimeout(function() {
-
 							//Reset scroll
 								if (config.resetScroll)
 									$this.scrollTop(0);
-
 							//Reset forms
 								if (config.resetForms)
 									$this.find('form').each(function() {
@@ -117,14 +98,11 @@
 								target = $a.attr('target');
 							if (!href || href == '#' || href == '' || href == '#' + id)
 								return;
-
 							//Cancel original event
 								event.preventDefault();
 								event.stopPropagation();
-
 							//Hide panel
 								$this._hide();
-
 							//Redirect to link
 								window.setTimeout(function() {
 									if (target == '_blank')
@@ -187,23 +165,18 @@
 					event.stopPropagation();
 					config.target.removeClass(config.visibleClass);
 				});
-
 		//BODY
-
 			//Hide panel on body click
 				$body.on('click touchend', function(event) {
 					$this._hide(event);
 				});
-
 			//Toggle
 				$body.on('click', 'a[href="#' + id + '"]', function(event) {
 					event.preventDefault();
 					event.stopPropagation();
 					config.target.toggleClass(config.visibleClass);
 				});
-
 		//WINDOW
-
 			//Hide on ESC key
 				if (config.hideOnEscape)
 					$window.on('keydown', function(event) {
@@ -211,29 +184,22 @@
 							$this._hide(event);
 					});
 		return $this;
-
 	};
-
 	$.fn.placeholder = function() {
-
 			if (typeof (document.createElement('input')).placeholder != 'undefined')
 				return $(this);
-
 		//0 elements
 			if (this.length == 0)
 				return $this;
-
-		//1+ elements?
+		//1+ elements
 			if (this.length > 1) {
 				for (var i=0; i < this.length; i++)
 					$(this[i]).placeholder();
 				return $this;
 			}
-
 		//Vars
 			var $this = $(this);
-
-		//Text & TextArea.
+		//Text & TextArea
 			$this.find('input[type=text],textarea')
 				.each(function() {
 					var i = $(this);
@@ -261,7 +227,6 @@
 							.removeClass('polyfill-placeholder')
 							.val('');
 				});
-
 		//Password
 			$this.find('input[type=password]')
 				.each(function() {
@@ -274,16 +239,12 @@
 									.replace(/type="password"/i, 'type="text"')
 									.replace(/type=password/i, 'type=text')
 					);
-
 					if (i.attr('id') != '')
 						x.attr('id', i.attr('id') + '-polyfill-field');
-
 					if (i.attr('name') != '')
 						x.attr('name', i.attr('name') + '-polyfill-field');
-
 					x.addClass('polyfill-placeholder')
 						.val(x.attr('placeholder')).insertAfter(i);
-
 					if (i.val() == '')
 						i.hide();
 					else
@@ -311,7 +272,6 @@
 							x.val('');
 						});
 				});
-
 		//EVENTS
 			$this
 				.on('submit', function() {
@@ -371,11 +331,9 @@
 				});
 		return $this;
 	};
-
 	$.prioritize = function($elements, condition) {
 		var key = '__prioritize';
-
-		//If !jQuery object, Expand $jQuery
+		//If non-jQuery object, expand $jQuery
 			if (typeof $elements != 'jQuery')
 				$elements = $($elements);
 		//Step through elements
@@ -401,5 +359,4 @@
 					}
 			});
 	};
-
 })(jQuery);
