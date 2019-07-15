@@ -1720,6 +1720,9 @@
 			margin-left: 0;
 			padding-left: 0;
 		}
+	.list-header {
+		margin-bottom: 0em;
+	}
 
 /* TABLES */
 	table {
